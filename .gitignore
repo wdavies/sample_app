@@ -16,6 +16,7 @@ doc/
 *~
 *#
 
+./history
 .project
 .DS_Store
 .idea

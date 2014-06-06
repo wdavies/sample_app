@@ -1,0 +1,18 @@
+#1402082900
+cd stylesheets/
+#1402082901
+ls
+#1402082902
+more application.css 
+#1402082913
+ls
+#1402084790
+rails console
+#1402089223
+emacs example_user.rb
+#1402089241
+rails console
+#1402089254
+ls
+#1402089263
+mv example_user.rb ../../..

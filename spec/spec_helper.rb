@@ -1,9 +1,6 @@
 require 'rubygems'
 require 'spork'
 
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
-
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
@@ -16,7 +13,7 @@ Spork.prefork do
 
   # Checks for pending migrations before tests are run.
   # If you are not using ActiveRecord, you can remove this line.
-  # ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
+  ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
   RSpec.configure do |config|
     # ## Mock Framework
@@ -28,12 +25,12 @@ Spork.prefork do
     # config.mock_with :rr
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-    #config.fixture_path = "#{::Rails.root}/spec/fixtures"
+    config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    #config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = true
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -45,7 +42,12 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    # Include the Capybara DSL so that specs in spec/requests still work.
     config.include Capybara::DSL
+    # Disable the old-style object.should syntax.
+    config.expect_with :rspec do |c|
+      c.syntax = :expect
+    end
   end
 end
 
@@ -53,4 +55,3 @@ Spork.each_run do
   # This code will be run each time you run your specs.
 
 end
-
